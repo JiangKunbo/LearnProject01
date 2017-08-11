@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyPractiseDemo</string>
+
+
+    <string name="home_tab">首页</string>
+    <string name="beauti_tab">美女</string>
+    <string name="video_tab">视频</string>
+    <string name="care_tab">关注</string>
 </resources>

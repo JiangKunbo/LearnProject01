@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab_home"
+        android:enabled="true"
+        android:icon="@drawable/home_tab_selecter"
+        android:title="@string/home_tab"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_beauti"
+        android:enabled="true"
+        android:icon="@drawable/beauti_tab_selecter"
+        android:title="@string/beauti_tab"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_video"
+        android:enabled="true"
+        android:icon="@drawable/video_tab_selecter"
+        android:title="@string/video_tab"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_care"
+        android:enabled="true"
+        android:icon="@drawable/care_tab_selecter"
+        android:title="@string/care_tab"
+        app:showAsAction="ifRoom" />
+
+</menu>
