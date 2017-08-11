@@ -94,7 +94,7 @@ public class HomeFragment extends BaseFragment<IHomeContract.Present> implements
     private List<Fragment> getFragmentList(int size) {
         List<Fragment> list = new ArrayList<>();
         for(int i=0;i<size;i++){
-            Fragment f = new Fragment();
+            Fragment f = new HomeNewsFragment();
             list.add(f);
         }
         return list;

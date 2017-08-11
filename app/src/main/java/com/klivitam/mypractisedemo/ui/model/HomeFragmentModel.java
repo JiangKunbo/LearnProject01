@@ -2,10 +2,13 @@ package com.klivitam.mypractisedemo.ui.model;
 
 import android.content.Context;
 
+import com.klivitam.mypractisedemo.MyApplication;
+import com.klivitam.mypractisedemo.R;
 import com.klivitam.mypractisedemo.ui.imp.IHomeContract;
 import com.klivitam.mypractisedemo.ui.present.HomeFragmentPresent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,10 +26,6 @@ public class HomeFragmentModel implements IHomeContract.Model {
 
     @Override
     public List<String> loadTabList() {
-        List<String> s = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            s.add("列表"+i);
-        }
-        return s;
+        return Arrays.asList(MyApplication.getApplication().getResources().getStringArray(R.array.news_channel_name_static));
     }
 }
