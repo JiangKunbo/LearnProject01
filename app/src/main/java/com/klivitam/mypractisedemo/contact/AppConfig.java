@@ -11,4 +11,7 @@ public class AppConfig {
     public static final int VIDEO_FRAGMENT = 2;
     public static final int CARE_FRAGMENT = 3;
 
+    public static final int TYPE_ITEM = 0;
+    public static final int TYPE_PHOTO_ITEM =1;
+
 }

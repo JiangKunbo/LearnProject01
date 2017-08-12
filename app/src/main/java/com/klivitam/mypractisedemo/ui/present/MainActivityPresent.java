@@ -2,7 +2,7 @@ package com.klivitam.mypractisedemo.ui.present;
 
 import android.content.Context;
 
-import com.klivitam.mypractisedemo.base.BasePresent;
+import com.jiangkunbo.common.base.BasePresent;
 import com.klivitam.mypractisedemo.ui.imp.IMainContract;
 import com.klivitam.mypractisedemo.ui.model.MainActivityModel;
 

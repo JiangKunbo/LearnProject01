@@ -49,7 +49,7 @@ public class TabUtils {
         return tabWidth;
     }
     static int getScreenWith() {
-        return MyApplication.getApplication().getResources().getDisplayMetrics().widthPixels;
+        return MyApplication.getInstance().getResources().getDisplayMetrics().widthPixels;
     }
     public static View getRootView(Activity context) {
         return ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);

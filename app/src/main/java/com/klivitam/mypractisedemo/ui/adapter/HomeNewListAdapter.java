@@ -1,48 +1,55 @@
 package com.klivitam.mypractisedemo.ui.adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context;
+import android.text.TextUtils;
 
+import com.jiangkunbo.common.recylerview.MultiItemRecycleViewAdapter;
+import com.jiangkunbo.common.recylerview.MultiItemTypeSupport;
+import com.jiangkunbo.common.recylerview.ViewHolderHelper;
 import com.klivitam.mypractisedemo.R;
-import com.klivitam.mypractisedemo.bean.NewChannelBean;
+import com.klivitam.mypractisedemo.bean.NewsContentBean;
 
 import java.util.List;
+
+import static com.klivitam.mypractisedemo.contact.AppConfig.TYPE_ITEM;
+import static com.klivitam.mypractisedemo.contact.AppConfig.TYPE_PHOTO_ITEM;
 
 /**
  * Created by klivitam on 17-8-12.
  */
 
-public class HomeNewListAdapter extends RecyclerView.Adapter<HomeNewListAdapter.ViewHelper> {
-    private List<NewChannelBean> lists;
+public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentBean> {
+    public HomeNewListAdapter(Context context, final List<NewsContentBean> datas) {
+        super(context, datas, new MultiItemTypeSupport<NewsContentBean>() {
 
-    public HomeNewListAdapter() {
+            @Override
+            public int getLayoutId(int type) {
+                if (type == TYPE_PHOTO_ITEM) {
+                    return R.layout.item_news_photo;
+                } else {
+                    return R.layout.item_news;
+                }
+            }
+
+            @Override
+            public int getItemViewType(int position, NewsContentBean msg) {
+                if (!TextUtils.isEmpty(msg.getDigest())) {
+                    return TYPE_ITEM;
+                }
+                return TYPE_PHOTO_ITEM;
+            }
+        });
     }
-
-    public void setLists(List<NewChannelBean> lists) {
-        this.lists = lists;
-    }
-
     @Override
-    public ViewHelper onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHelper(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news,parent,false));
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHelper holder, int position) {
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return (null != lists) && (lists.size() > 0) ? lists.size() : 0;
-    }
-
-    class ViewHelper extends RecyclerView.ViewHolder {
-
-        public ViewHelper(View itemView) {
-            super(itemView);
+    public void convert(ViewHolderHelper helper, NewsContentBean newsContentBean) {
+        switch (helper.getLayoutId())
+        {
+            case R.layout.item_news:
+//                setItemValues(holder,newsSummary,getPosition(holder));
+                break;
+            case R.layout.item_news_photo:
+//                setPhotoItemValues(holder,newsSummary,getPosition(holder));
+                break;
         }
     }
 }

@@ -10,10 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.jiangkunbo.common.base.BaseFragment;
+import com.jiangkunbo.common.base.BaseFragmentAdapter;
 import com.klivitam.mypractisedemo.R;
-import com.klivitam.mypractisedemo.base.BaseFragment;
 import com.klivitam.mypractisedemo.ui.act.HomeLabelChannelActivity;
-import com.klivitam.mypractisedemo.ui.adapter.MyNewsFragmentAdapter;
 import com.klivitam.mypractisedemo.ui.imp.IHomeContract;
 import com.klivitam.mypractisedemo.ui.present.HomeFragmentPresent;
 import com.klivitam.mypractisedemo.utils.TabUtils;
@@ -38,7 +38,7 @@ public class HomeFragment extends BaseFragment<IHomeContract.Present> implements
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
-    private MyNewsFragmentAdapter adapter;
+    private BaseFragmentAdapter adapter;
 
     @Override
     protected void initEventandDatas(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class HomeFragment extends BaseFragment<IHomeContract.Present> implements
     @Override
     public void initTab(List<String> tab_datas) {
         if(tab_datas!=null){
-            adapter = new MyNewsFragmentAdapter(getChildFragmentManager(),getFragmentList(tab_datas.size()),tab_datas);
+            adapter = new BaseFragmentAdapter(getChildFragmentManager(),getFragmentList(tab_datas.size()),tab_datas);
         }
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);

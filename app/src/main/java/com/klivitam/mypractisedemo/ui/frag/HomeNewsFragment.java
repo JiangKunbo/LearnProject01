@@ -3,20 +3,15 @@ package com.klivitam.mypractisedemo.ui.frag;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
+import com.jiangkunbo.common.base.BaseFragment;
 import com.klivitam.mypractisedemo.R;
-import com.klivitam.mypractisedemo.base.BaseFragment;
 import com.klivitam.mypractisedemo.ui.imp.IHomeNewsContract;
 import com.klivitam.mypractisedemo.ui.present.HomeNewsFragmentPresent;
 import com.scwang.smartrefresh.header.DeliveryHeader;
-import com.scwang.smartrefresh.header.DropboxHeader;
-import com.scwang.smartrefresh.header.PhoenixHeader;
-import com.scwang.smartrefresh.header.StoreHouseHeader;
-import com.scwang.smartrefresh.header.fungame.FunGameHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 

@@ -7,8 +7,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.klivitam.mypractisedemo.base.BaseActivity;
-import com.klivitam.mypractisedemo.base.BaseFragment;
+
+import com.jiangkunbo.common.base.BaseActivity;
+import com.jiangkunbo.common.base.BaseFragment;
 import com.klivitam.mypractisedemo.ui.frag.BeautiFragment;
 import com.klivitam.mypractisedemo.ui.frag.CareFragment;
 import com.klivitam.mypractisedemo.ui.frag.HomeFragment;
@@ -27,7 +28,7 @@ import static com.klivitam.mypractisedemo.contact.AppConfig.HOME_FRAGMENT;
 import static com.klivitam.mypractisedemo.contact.AppConfig.VIDEO_FRAGMENT;
 
 
-public class MainActivity extends BaseActivity<MainActivityPresent> implements IMainContract.View {
+public class MainActivity extends BaseActivity<IMainContract.Present> implements IMainContract.View {
     private String TAG = "JKB";
     @BindView(R.id.tab_view)
     BottomNavigationView mTabView;

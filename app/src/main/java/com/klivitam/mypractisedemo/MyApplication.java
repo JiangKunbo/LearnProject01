@@ -1,24 +1,21 @@
 package com.klivitam.mypractisedemo;
 
-import android.app.Application;
-import android.content.res.Resources;
+
+
+import com.jiangkunbo.common.base.BaseApplication;
+import com.jiangkunbo.common.utills.LogUtils;
 
 /**
  * Created by klivitam on 17-8-11.
  */
 
-public class MyApplication extends Application {
-    private static MyApplication myApplication = null;
+public class MyApplication extends BaseApplication {
 
-    public static MyApplication getApplication() {
-        return myApplication;
+    public MyApplication() {
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
-
-        myApplication = this;
+//        LogUtils.logInit(BuildConfig.LOG_DEBUG);
     }
-
 }

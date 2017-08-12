@@ -2,8 +2,8 @@ package com.klivitam.mypractisedemo.ui.frag;
 
 import android.os.Bundle;
 
+import com.jiangkunbo.common.base.BaseFragment;
 import com.klivitam.mypractisedemo.R;
-import com.klivitam.mypractisedemo.base.BaseFragment;
 import com.klivitam.mypractisedemo.ui.imp.ICareContract;
 import com.klivitam.mypractisedemo.ui.present.CareFragmentPresent;
 

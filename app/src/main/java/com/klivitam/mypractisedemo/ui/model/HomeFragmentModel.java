@@ -26,6 +26,6 @@ public class HomeFragmentModel implements IHomeContract.Model {
 
     @Override
     public List<String> loadTabList() {
-        return Arrays.asList(MyApplication.getApplication().getResources().getStringArray(R.array.news_channel_name_static));
+        return Arrays.asList(MyApplication.getInstance().getResources().getStringArray(R.array.news_channel_name_static));
     }
 }

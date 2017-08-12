@@ -1,6 +1,7 @@
 package com.klivitam.mypractisedemo.ui.imp;
 
-import com.klivitam.mypractisedemo.base.imp.IContract;
+
+import com.jiangkunbo.common.base.imp.IContract;
 
 import java.util.List;
 

@@ -26,11 +26,11 @@ public class HomeChannelModel implements IHomeChannel.Model {
 
     @Override
     public List<String> loadSelectItem() {
-        return Arrays.asList(MyApplication.getApplication().getResources().getStringArray(R.array.news_channel_name_static));
+        return Arrays.asList(MyApplication.getInstance().getResources().getStringArray(R.array.news_channel_name_static));
     }
 
     @Override
     public List<String> loadMoreItem() {
-        return Arrays.asList(MyApplication.getApplication().getResources().getStringArray(R.array.news_channel_name));
+        return Arrays.asList(MyApplication.getInstance().getResources().getStringArray(R.array.news_channel_name));
     }
 }
