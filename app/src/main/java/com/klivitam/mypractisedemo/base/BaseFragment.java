@@ -2,6 +2,8 @@ package com.klivitam.mypractisedemo.base;
 
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -50,6 +52,13 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
 
     public P getPresenter() {
         return presenter;
+    }
+
+    public void intentAct(Class<?> c ,boolean isFinshActivity){
+        startActivity(new Intent(getActivity(),c));
+        if(isFinshActivity){
+            getActivity().finish();
+        }
     }
 
     @Override

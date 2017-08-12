@@ -1,5 +1,6 @@
 package com.klivitam.mypractisedemo.ui.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.klivitam.mypractisedemo.R;
 import com.klivitam.mypractisedemo.base.BaseFragment;
+import com.klivitam.mypractisedemo.ui.act.HomeLabelChannelActivity;
 import com.klivitam.mypractisedemo.ui.adapter.MyNewsFragmentAdapter;
 import com.klivitam.mypractisedemo.ui.imp.IHomeContract;
 import com.klivitam.mypractisedemo.ui.present.HomeFragmentPresent;
@@ -51,6 +53,7 @@ public class HomeFragment extends BaseFragment<IHomeContract.Present> implements
 
     @OnClick({R.id.add_channel_iv})
     public void addChannel(View view) {
+        startActivity(new Intent(getActivity(),HomeLabelChannelActivity.class));
 
     }
 
