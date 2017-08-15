@@ -44,6 +44,7 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
         }
         return view;
     }
+
     protected abstract void initEventandDatas(Bundle savedInstanceState);
 
     protected abstract P loadPresent();
@@ -61,18 +62,21 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
             presenter.detchView();
         }
     }
+
     /**
      * 通过Class跳转界面
      **/
     public void startActivity(Class<?> cls) {
         startActivity(cls, null);
     }
+
     /**
      * 通过Class跳转界面
      **/
     public void startActivityForResult(Class<?> cls, int requestCode) {
         startActivityForResult(cls, null, requestCode);
     }
+
     /**
      * 含有Bundle通过Class跳转界面
      **/
@@ -85,6 +89,7 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
         }
         startActivityForResult(intent, requestCode);
     }
+
     /**
      * 含有Bundle通过Class跳转界面
      **/
@@ -96,12 +101,14 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
         }
         startActivity(intent);
     }
+
     /**
      * 开启加载进度条
      */
     public void startProgressDialog() {
         LoadingDialog.showDialogForLoading(getActivity());
     }
+
     /**
      * 开启加载进度条
      *
@@ -110,30 +117,35 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
     public void startProgressDialog(String msg) {
         LoadingDialog.showDialogForLoading(getActivity(), msg, true);
     }
+
     /**
      * 停止加载进度条
      */
     public void stopProgressDialog() {
         LoadingDialog.cancelDialogForLoading();
     }
+
     /**
      * 短暂显示Toast提示(来自String)
      **/
     public void showShortToast(String text) {
         ToastUitl.showShort(text);
     }
+
     /**
      * 短暂显示Toast提示(id)
      **/
     public void showShortToast(int resId) {
         ToastUitl.showShort(resId);
     }
+
     /**
      * 长时间显示Toast提示(来自res)
      **/
     public void showLongToast(int resId) {
         ToastUitl.showLong(resId);
     }
+
     /**
      * 长时间显示Toast提示(来自String)
      **/
@@ -141,16 +153,18 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
         ToastUitl.showLong(text);
     }
 
-    public void showToastWithImg(String text,int res) {
-        ToastUitl.showToastWithImg(text,res);
+    public void showToastWithImg(String text, int res) {
+        ToastUitl.showToastWithImg(text, res);
     }
+
     /**
      * 网络访问错误提醒
      */
     public void showNetErrorTip() {
-        ToastUitl.showToastWithImg(getText(R.string.net_error).toString(),R.drawable.ic_wifi_off);
+        ToastUitl.showToastWithImg(getText(R.string.net_error).toString(), R.drawable.ic_wifi_off);
     }
+
     public void showNetErrorTip(String error) {
-        ToastUitl.showToastWithImg(error,R.drawable.ic_wifi_off);
+        ToastUitl.showToastWithImg(error, R.drawable.ic_wifi_off);
     }
 }

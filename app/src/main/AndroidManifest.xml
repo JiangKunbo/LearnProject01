@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.act.HomeLabelChannelActivity"/>
+        <activity android:name=".ui.news.act.HomeLabelChannelActivity"/>
     </application>
 
 </manifest>

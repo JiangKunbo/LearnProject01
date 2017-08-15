@@ -10,12 +10,12 @@ import android.view.MenuItem;
 
 import com.jiangkunbo.common.base.BaseActivity;
 import com.jiangkunbo.common.base.BaseFragment;
-import com.klivitam.mypractisedemo.ui.frag.BeautiFragment;
-import com.klivitam.mypractisedemo.ui.frag.CareFragment;
-import com.klivitam.mypractisedemo.ui.frag.HomeFragment;
-import com.klivitam.mypractisedemo.ui.frag.VideoFragment;
-import com.klivitam.mypractisedemo.ui.imp.IMainContract;
-import com.klivitam.mypractisedemo.ui.present.MainActivityPresent;
+import com.klivitam.mypractisedemo.ui.main.frag.BeautiFragment;
+import com.klivitam.mypractisedemo.ui.main.frag.CareFragment;
+import com.klivitam.mypractisedemo.ui.main.frag.HomeFragment;
+import com.klivitam.mypractisedemo.ui.main.frag.VideoFragment;
+import com.klivitam.mypractisedemo.ui.main.imp.IMainContract;
+import com.klivitam.mypractisedemo.ui.main.present.MainActivityPresent;
 
 import java.util.ArrayList;
 import java.util.List;
