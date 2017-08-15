@@ -10,14 +10,7 @@ import com.klivitam.mypractisedemo.ui.main.frag.HomeFragment;
 import com.klivitam.mypractisedemo.ui.main.imp.IHomeContract;
 import com.klivitam.mypractisedemo.ui.main.model.HomeFragmentModel;
 
-import java.util.List;
-import java.util.Objects;
 
-import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.schedulers.IoScheduler;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by klivitam on 17-8-10.

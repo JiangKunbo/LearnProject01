@@ -26,12 +26,13 @@ public abstract class BaseActivity<P extends IContract.IPresent> extends AppComp
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        initEventandDatas(savedInstanceState);
         if(presenter==null){
             presenter = loadPresent();
             presenter.attachView(this,getApplication());
             presenter.start();
         }
+        initEventandDatas(savedInstanceState);
+
     }
     @Override
     protected void onDestroy() {

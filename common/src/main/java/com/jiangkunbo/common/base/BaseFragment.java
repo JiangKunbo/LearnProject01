@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.jiangkunbo.common.R;
 import com.jiangkunbo.common.base.imp.IContract;
+import com.jiangkunbo.common.rxbase.RxManager;
 import com.jiangkunbo.common.utills.ToastUitl;
 import com.jiangkunbo.common.widgets.LoadingDialog;
 
@@ -25,6 +26,7 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
     private P presenter;
     private View view;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -32,12 +34,12 @@ public abstract class BaseFragment<P extends IContract.IPresent> extends Fragmen
             view = inflater.inflate(getLayoutId(), container, false);
         }
         ButterKnife.bind(this, view);
-        initEventandDatas(savedInstanceState);
         if (presenter == null) {
             presenter = loadPresent();
             presenter.attachView(this, getActivity().getApplication());
             presenter.start();
         }
+        initEventandDatas(savedInstanceState);
         ViewGroup parent = (ViewGroup) view.getParent();
         if (parent != null) {
             parent.removeView(view);

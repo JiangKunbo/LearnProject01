@@ -1,10 +1,15 @@
 package com.klivitam.mypractisedemo.ui.news.frag;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.jiangkunbo.animation.ScaleInAnimation;
 import com.jiangkunbo.common.base.BaseFragment;
 import com.klivitam.mypractisedemo.R;
+import com.klivitam.mypractisedemo.bean.NewsContentBean;
+import com.klivitam.mypractisedemo.ui.news.adapter.HomeNewListAdapter;
 import com.klivitam.mypractisedemo.ui.news.imp.IHomeNewsContract;
 import com.klivitam.mypractisedemo.ui.news.present.HomeNewsFragmentPresent;
 import com.scwang.smartrefresh.header.DeliveryHeader;
@@ -14,6 +19,9 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -27,12 +35,29 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
     @BindView(R.id.list_news)
     RecyclerView mRecyclerView;
 
+    private String mNewsId;
+    private String mNewsType;
+    private int mStartPage=0;
+
+    private List<NewsContentBean> datas;
+    private HomeNewListAdapter adapter;
+
     @Override
     protected void initEventandDatas(Bundle savedInstanceState) {
         initRefreshLogic();
     }
 
+//    http://c.m.163.com/nc/article/headline/T1348647909107/0-20.html
     private void initRefreshLogic() {
+//        if(getArguments()!=null){
+        mNewsId = "T1348647909107";
+        mNewsType = "headline";
+//        }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        datas = new ArrayList<>();
+        adapter = new HomeNewListAdapter(getContext(),datas);
+        adapter.openLoadAnimation(new ScaleInAnimation());
+        mRecyclerView.setAdapter(adapter);
         mRefreshLayout.setEnableLoadmore(true);
         mRefreshLayout.setEnableAutoLoadmore(true);
         mRefreshLayout.setRefreshHeader(new DeliveryHeader(getContext()));
@@ -49,6 +74,9 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
 
             }
         });
+        if(adapter.getSize()<=0){
+            getPresenter().getListForRequest(mNewsType,mNewsId,mStartPage);
+        }
     }
 
     @Override
@@ -59,5 +87,27 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home_new;
+    }
+
+    @Override
+    public void showLoading(String s) {
+
+    }
+
+    @Override
+    public void returnNewsListData(List<NewsContentBean> list) {
+        if(list!=null){
+            adapter.replaceAll(list);
+        }
+    }
+
+    @Override
+    public void stopLoading() {
+
+    }
+
+    @Override
+    public void showErrorTip(String message) {
+
     }
 }

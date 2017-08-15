@@ -2,8 +2,7 @@ package com.klivitam.mypractisedemo.ui.main.model;
 
 import android.content.Context;
 
-import com.jiangkunbo.bean.MsgEvent;
-import com.jiangkunbo.common.rxjava.rxbus.RxBus;
+
 import com.klivitam.mypractisedemo.MyApplication;
 import com.klivitam.mypractisedemo.R;
 import com.klivitam.mypractisedemo.ui.main.imp.IHomeContract;
