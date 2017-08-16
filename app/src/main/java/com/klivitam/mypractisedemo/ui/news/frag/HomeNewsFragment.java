@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.jiangkunbo.animation.ScaleInAnimation;
 import com.jiangkunbo.common.base.BaseFragment;
+import com.jiangkunbo.common.recylerview.OnItemClickListener;
 import com.klivitam.mypractisedemo.R;
 import com.klivitam.mypractisedemo.bean.NewsContentBean;
 import com.klivitam.mypractisedemo.ui.news.adapter.HomeNewListAdapter;
@@ -65,13 +68,30 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-
+                mStartPage = 0;
+                getPresenter().getListForRequest(mNewsType,mNewsId,mStartPage);
+                mRefreshLayout.finishRefresh();
             }
         });
         mRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
+                mStartPage+=20;
+                getPresenter().getListForRequest(mNewsType,mNewsId,mStartPage);
+                mRefreshLayout.finishLoadmore();
 
+            }
+        });
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(ViewGroup parent, View view, Object o, int position) {
+                Bundle bundle = new Bundle();
+
+            }
+
+            @Override
+            public boolean onItemLongClick(ViewGroup parent, View view, Object o, int position) {
+                return false;
             }
         });
         if(adapter.getSize()<=0){

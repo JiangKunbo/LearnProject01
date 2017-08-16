@@ -9,6 +9,7 @@ import com.klivitam.mypractisedemo.bean.NewsContentBean;
 import com.klivitam.mypractisedemo.ui.news.imp.IHomeNewsContract;
 import com.klivitam.mypractisedemo.ui.news.model.HomeNewFragmentModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class HomeNewsFragmentPresent extends BasePresent<IHomeNewsContract.View,IHomeNewsContract.Model> implements IHomeNewsContract.Present{
 
-
+    List<NewsContentBean> allSummaries = new ArrayList<>();
 
     @Override
     public void start() {
@@ -31,7 +32,7 @@ public class HomeNewsFragmentPresent extends BasePresent<IHomeNewsContract.View,
     }
 
     @Override
-    public void getListForRequest(String type, String id, int startPage) {
+    public void getListForRequest(String type, String id, final int startPage) {
         mRxManage.add(getModels().loadNetWorkList(type,id,startPage).subscribe(new RxSubscriber<List<NewsContentBean>>(getContext(),false) {
             @Override
             public void onStart() {
@@ -41,7 +42,12 @@ public class HomeNewsFragmentPresent extends BasePresent<IHomeNewsContract.View,
 
             @Override
             protected void _onNext(List<NewsContentBean> newsSummaries) {
-                getViews().returnNewsListData(newsSummaries);
+                if (startPage ==0){
+                    allSummaries = newsSummaries;
+                }else{
+                    allSummaries.addAll(newsSummaries);
+                }
+                getViews().returnNewsListData(allSummaries);
                 getViews().stopLoading();
             }
 

@@ -1,5 +1,6 @@
 package com.klivitam.mypractisedemo.api;
 
+import com.klivitam.mypractisedemo.bean.GrilDatas;
 import com.klivitam.mypractisedemo.bean.NewsContentBean;
 
 
@@ -22,4 +23,11 @@ public interface ApiService {
             @Header("Cache-Control") String cacheControl,
             @Path("type") String type, @Path("id") String id,
             @Path("startPage") int startPage);
+
+    //    http://gank.io/api/data/福利/{size}/{page}
+    @GET("data/福利/{size}/{page}")
+    Observable<GrilDatas> getPhotoList(
+            @Header("Cache-Control") String cacheControl,
+            @Path("size") int size,
+            @Path("page") int page);
 }
