@@ -1,6 +1,11 @@
 package com.klivitam.mypractisedemo.ui.news.frag;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,9 +17,11 @@ import com.jiangkunbo.common.base.BaseFragment;
 import com.jiangkunbo.common.recylerview.OnItemClickListener;
 import com.klivitam.mypractisedemo.R;
 import com.klivitam.mypractisedemo.bean.NewsContentBean;
+import com.klivitam.mypractisedemo.ui.news.act.NewsDetailActivity;
 import com.klivitam.mypractisedemo.ui.news.adapter.HomeNewListAdapter;
 import com.klivitam.mypractisedemo.ui.news.imp.IHomeNewsContract;
 import com.klivitam.mypractisedemo.ui.news.present.HomeNewsFragmentPresent;
+import com.klivitam.mypractisedemo.utils.AppConfig;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -28,6 +35,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.klivitam.mypractisedemo.utils.AppConfig.FRAGMENT_ID;
+import static com.klivitam.mypractisedemo.utils.AppConfig.FRAGMENT_TYPE;
+
 /**
  * Created by klivitam on 17-8-11.
  */
@@ -40,7 +50,7 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
 
     private String mNewsId;
     private String mNewsType;
-    private int mStartPage=0;
+    private int mStartPage = 0;
 
     private List<NewsContentBean> datas;
     private HomeNewListAdapter adapter;
@@ -50,15 +60,15 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
         initRefreshLogic();
     }
 
-//    http://c.m.163.com/nc/article/headline/T1348647909107/0-20.html
+    //    http://c.m.163.com/nc/article/headline/T1348647909107/0-20.html
     private void initRefreshLogic() {
-//        if(getArguments()!=null){
-        mNewsId = "T1348647909107";
-        mNewsType = "headline";
-//        }
+        if (getArguments() != null) {
+            mNewsId = getArguments().getString(FRAGMENT_ID);
+            mNewsType = getArguments().getString(FRAGMENT_TYPE);
+        }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         datas = new ArrayList<>();
-        adapter = new HomeNewListAdapter(getContext(),datas);
+        adapter = new HomeNewListAdapter(getContext(), datas);
         adapter.openLoadAnimation(new ScaleInAnimation());
         mRecyclerView.setAdapter(adapter);
         mRefreshLayout.setEnableLoadmore(true);
@@ -69,33 +79,22 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 mStartPage = 0;
-                getPresenter().getListForRequest(mNewsType,mNewsId,mStartPage);
+                getPresenter().getListForRequest(mNewsType, mNewsId, mStartPage);
                 mRefreshLayout.finishRefresh();
             }
         });
         mRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                mStartPage+=20;
-                getPresenter().getListForRequest(mNewsType,mNewsId,mStartPage);
+                mStartPage += 20;
+                getPresenter().getListForRequest(mNewsType, mNewsId, mStartPage);
                 mRefreshLayout.finishLoadmore();
 
             }
         });
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(ViewGroup parent, View view, Object o, int position) {
-                Bundle bundle = new Bundle();
 
-            }
-
-            @Override
-            public boolean onItemLongClick(ViewGroup parent, View view, Object o, int position) {
-                return false;
-            }
-        });
-        if(adapter.getSize()<=0){
-            getPresenter().getListForRequest(mNewsType,mNewsId,mStartPage);
+        if (adapter.getSize() <= 0) {
+            getPresenter().getListForRequest(mNewsType, mNewsId, mStartPage);
         }
     }
 
@@ -116,7 +115,7 @@ public class HomeNewsFragment extends BaseFragment<IHomeNewsContract.Present> im
 
     @Override
     public void returnNewsListData(List<NewsContentBean> list) {
-        if(list!=null){
+        if (list != null) {
             adapter.replaceAll(list);
         }
     }

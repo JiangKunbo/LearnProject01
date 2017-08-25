@@ -6,7 +6,7 @@ import com.klivitam.mypractisedemo.bean.PhotoGirl;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by klivitam on 17-8-10.

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.jiangkunbo.common.R;
 import com.jiangkunbo.common.base.imp.IContract;
-import com.jiangkunbo.common.rxbase.RxManager;
+//import com.jiangkunbo.common.rxbase.RxManager;
 import com.jiangkunbo.common.utills.ToastUitl;
 import com.jiangkunbo.common.widgets.LoadingDialog;
 

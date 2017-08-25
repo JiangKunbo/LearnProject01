@@ -1,6 +1,7 @@
 package com.klivitam.mypractisedemo.ui.news.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -9,6 +10,7 @@ import com.jiangkunbo.common.recylerview.ItemDragHelperCallback;
 import com.jiangkunbo.common.recylerview.ViewHolderHelper;
 import com.jiangkunbo.common.widgets.OnNoDoubleClickListener;
 import com.klivitam.mypractisedemo.R;
+import com.klivitam.mypractisedemo.bean.NewChannelBean;
 
 import java.util.Collections;
 
@@ -16,7 +18,7 @@ import java.util.Collections;
  * Created by Administrator on 2017/8/12.
  */
 
-public class ShowChannelAdapter extends CommonRecycleViewAdapter<String> implements
+public class ShowChannelAdapter extends CommonRecycleViewAdapter<NewChannelBean> implements
         ItemDragHelperCallback.OnItemMoveListener {
 
     private ItemDragHelperCallback mItemDragHelperCallback;
@@ -42,13 +44,22 @@ public class ShowChannelAdapter extends CommonRecycleViewAdapter<String> impleme
     }
 
     @Override
-    public void convert(final ViewHolderHelper helper, String s) {
-        helper.setText(R.id.news_channel_tv, s);
-        if (s != null && mItemDragHelperCallback != null) {
+    public void convert(final ViewHolderHelper helper, final NewChannelBean s) {
+        if (s != null && s.isChannelSelect()) {
+            helper.setTextColor(R.id.news_channel_tv, ContextCompat.getColor(mContext, R.color.gray_deep));
+        } else {
+            helper.setTextColor(R.id.news_channel_tv, ContextCompat.getColor(mContext, R.color.gray));
+        }
+        helper.setText(R.id.news_channel_tv, s.getChannelName());
+        if (mItemDragHelperCallback != null) {
             helper.itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    mItemDragHelperCallback.setLongPressEnabled(true);
+                    if (!s.isChannelSelect()) {
+                        mItemDragHelperCallback.setLongPressEnabled(true);
+                    } else {
+                        mItemDragHelperCallback.setLongPressEnabled(false);
+                    }
                     return false;
                 }
             });

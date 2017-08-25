@@ -18,6 +18,11 @@ public class NewChannelBean implements Serializable {
         this.channelSelect = channelSelect;
         this.channelType = channelType;
     }
+    public NewChannelBean(String channelId, String channelName, boolean channelSelect) {
+        this.channelId = channelId;
+        this.channelName = channelName;
+        this.channelSelect = channelSelect;
+    }
 
     public String getChannelId() {
         return channelId;

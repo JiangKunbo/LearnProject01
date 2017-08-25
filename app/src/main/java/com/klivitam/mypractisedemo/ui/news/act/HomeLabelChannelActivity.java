@@ -12,9 +12,13 @@ import android.text.LoginFilter;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.jiangkunbo.common.base.BaseActivity;
 import com.jiangkunbo.common.recylerview.ItemDragHelperCallback;
+import com.jiangkunbo.common.utills.SPUtils;
+import com.klivitam.mypractisedemo.MyApplication;
 import com.klivitam.mypractisedemo.R;
+import com.klivitam.mypractisedemo.bean.NewChannelBean;
 import com.klivitam.mypractisedemo.ui.news.adapter.ShowChannelAdapter;
 import com.klivitam.mypractisedemo.ui.news.imp.IHomeChannel;
 import com.klivitam.mypractisedemo.ui.news.present.HomeChannelPresent;
@@ -23,6 +27,9 @@ import com.klivitam.mypractisedemo.ui.news.present.HomeChannelPresent;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.klivitam.mypractisedemo.utils.AppConfig.FRAGMENT_TAB;
+import static com.klivitam.mypractisedemo.utils.AppConfig.FRAGMENT_TAB_CHANGE;
 
 /**
  * Created by klivitam on 17-8-12.
@@ -65,19 +72,19 @@ public class HomeLabelChannelActivity extends BaseActivity<IHomeChannel.Present>
     }
 
     @Override
-    public void showSelectItem(final List<String> list) {
-        Log.i("jkb", "showSelectItem: "+list.size());
-        mSelectAdapter = new ShowChannelAdapter(getApplication(),R.layout.item_list_channel);
+    public void showSelectItem(final List<NewChannelBean> list) {
+        mSelectAdapter = new ShowChannelAdapter(getApplication(), R.layout.item_list_channel);
         newsChannelMineRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
         newsChannelMineRv.setItemAnimator(new DefaultItemAnimator());
         newsChannelMineRv.setAdapter(mSelectAdapter);
         mSelectAdapter.replaceAll(list);
-
         mSelectAdapter.setOnItemClickListener(new ShowChannelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 mMoreAdapter.add(mSelectAdapter.getAll().get(position));
                 mSelectAdapter.removeAt(position);
+                SPUtils.setSharedStringData(MyApplication.getInstance(), FRAGMENT_TAB, new Gson().toJson(mSelectAdapter.getAll()));
+                SPUtils.setSharedStringData(MyApplication.getInstance(), FRAGMENT_TAB_CHANGE, new Gson().toJson(mMoreAdapter.getAll()));
             }
         });
         ItemDragHelperCallback itemDragHelperCallback = new ItemDragHelperCallback(mSelectAdapter);
@@ -87,9 +94,9 @@ public class HomeLabelChannelActivity extends BaseActivity<IHomeChannel.Present>
     }
 
     @Override
-    public void showMoreItem(final List<String> list) {
-        Log.i("jkb", "showMoreItem: "+list.size());
-        mMoreAdapter = new ShowChannelAdapter(getApplication(),R.layout.item_list_channel);
+    public void showMoreItem(final List<NewChannelBean> list) {
+        Log.i("jkb", "showMoreItem: " + list.size());
+        mMoreAdapter = new ShowChannelAdapter(getApplication(), R.layout.item_list_channel);
         newsChannelMoreRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
         newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
         mMoreAdapter.replaceAll(list);
@@ -99,6 +106,8 @@ public class HomeLabelChannelActivity extends BaseActivity<IHomeChannel.Present>
             public void onItemClick(View view, int position) {
                 mSelectAdapter.add(mMoreAdapter.getAll().get(position));
                 mMoreAdapter.removeAt(position);
+                SPUtils.setSharedStringData(MyApplication.getInstance(), FRAGMENT_TAB, new Gson().toJson(mSelectAdapter.getAll()));
+                SPUtils.setSharedStringData(MyApplication.getInstance(), FRAGMENT_TAB_CHANGE, new Gson().toJson(mMoreAdapter.getAll()));
             }
         });
     }

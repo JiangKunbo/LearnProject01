@@ -65,6 +65,7 @@ public class BeautiFragment extends BaseFragment<IBeautiContract.Present> implem
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
 //                        PhotosDetailActivity.startAction(mContext,photoGirl.getUrl());
                     }
                 });

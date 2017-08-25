@@ -1,14 +1,11 @@
 package com.klivitam.mypractisedemo.api;
 
-
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import com.jiangkunbo.common.utills.NetWorkUtils;
 import com.klivitam.mypractisedemo.MyApplication;
 
@@ -24,7 +21,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -109,10 +106,9 @@ public class Api {
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(ApiConstants.getHost(hostType))
                 .build();
-        Log.i("jkb ", "Api: "+ApiConstants.getHost(hostType));
         movieService = retrofit.create(ApiService.class);
     }
 
@@ -163,7 +159,7 @@ public class Api {
             String cacheControl = request.cacheControl().toString();
             if (!NetWorkUtils.isNetConnected(MyApplication.getInstance())) {
                 request = request.newBuilder()
-                        .cacheControl(TextUtils.isEmpty(cacheControl)? CacheControl.FORCE_NETWORK: CacheControl.FORCE_CACHE)
+                        .cacheControl(TextUtils.isEmpty(cacheControl)?CacheControl.FORCE_NETWORK:CacheControl.FORCE_CACHE)
                         .build();
             }
             Response originalResponse = chain.proceed(request);

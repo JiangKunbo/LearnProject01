@@ -1,7 +1,14 @@
 package com.klivitam.mypractisedemo.ui.news.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -14,6 +21,9 @@ import com.klivitam.mypractisedemo.MyApplication;
 import com.klivitam.mypractisedemo.R;
 import com.klivitam.mypractisedemo.bean.NewsContentBean;
 import com.klivitam.mypractisedemo.bean.NewsPhotoDetail;
+import com.klivitam.mypractisedemo.ui.news.act.NewsBrowserActivity;
+import com.klivitam.mypractisedemo.ui.news.act.NewsDetailActivity;
+import com.klivitam.mypractisedemo.utils.AppConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,20 +57,20 @@ public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentB
             }
         });
     }
+
     @Override
     public void convert(ViewHolderHelper helper, NewsContentBean newsContentBean) {
-        switch (helper.getLayoutId())
-        {
+        switch (helper.getLayoutId()) {
             case R.layout.item_news:
-                setItemValues(helper,newsContentBean,getPosition(helper));
+                setItemValues(helper, newsContentBean, getPosition(helper));
                 break;
             case R.layout.item_news_photo:
-                setPhotoItemValues(helper,newsContentBean,getPosition(helper));
+                setPhotoItemValues(helper, newsContentBean, getPosition(helper));
                 break;
         }
     }
 
-    private void setItemValues(ViewHolderHelper holder, NewsContentBean newsSummary, int position) {
+    private void setItemValues(ViewHolderHelper holder, final NewsContentBean newsSummary, final int position) {
         String title = newsSummary.getLtitle();
         if (title == null) {
             title = newsSummary.getTitle();
@@ -69,13 +79,27 @@ public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentB
         String digest = newsSummary.getDigest();
         String imgSrc = newsSummary.getImgsrc();
 
-        holder.setText(R.id.news_summary_title_tv,title);
-        holder.setText(R.id.news_summary_ptime_tv,ptime);
-        holder.setText(R.id.news_summary_digest_tv,digest);
-        holder.setImageUrl(R.id.news_summary_photo_iv,imgSrc);
+        holder.setText(R.id.news_summary_title_tv, title);
+        holder.setText(R.id.news_summary_ptime_tv, ptime);
+        holder.setText(R.id.news_summary_digest_tv, digest);
+        holder.setImageUrl(R.id.news_summary_photo_iv, imgSrc);
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(mContext, NewsBrowserActivity.class);
+                intent.putExtra(AppConfig.NEWS_POST_ID, newsSummary.getPostid());
+                intent.putExtra(AppConfig.NEWS_IMG_RES, newsSummary.getImgsrc());
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options = ActivityOptions
+                            .makeSceneTransitionAnimation((Activity) mContext, view, AppConfig.TRANSITION_ANIMATION_NEWS_PHOTOS);
+                    mContext.startActivity(intent, options.toBundle());
+                } else {
+                    //让新的Activity从一个小的范围扩大到全屏
+                    ActivityOptionsCompat options = ActivityOptionsCompat
+                            .makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+                    ActivityCompat.startActivity(mContext, intent, options.toBundle());
+                }
 //                NewsDetailActivity.startAction(mContext,holder.getView(R.id.news_summary_photo_iv),newsSummary.getPostid(),newsSummary.getImgsrc());
             }
         });
@@ -84,8 +108,8 @@ public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentB
     private void setPhotoItemValues(ViewHolderHelper holder, final NewsContentBean newsSummary, int position) {
         String title = newsSummary.getTitle();
         String ptime = newsSummary.getPtime();
-        holder.setText(R.id.news_summary_title_tv,title);
-        holder.setText(R.id.news_summary_ptime_tv,ptime);
+        holder.setText(R.id.news_summary_title_tv, title);
+        holder.setText(R.id.news_summary_ptime_tv, ptime);
         setImageView(holder, newsSummary);
         holder.setOnClickListener(R.id.ll_root, new View.OnClickListener() {
             @Override
@@ -94,6 +118,7 @@ public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentB
             }
         });
     }
+
     private NewsPhotoDetail getPhotoDetail(NewsContentBean newsSummary) {
         NewsPhotoDetail newsPhotoDetail = new NewsPhotoDetail();
         newsPhotoDetail.setTitle(newsSummary.getTitle());
@@ -117,6 +142,7 @@ public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentB
 
         newsPhotoDetail.setPictures(pictureList);
     }
+
     private void setValuesAndAddToList(List<NewsPhotoDetail.Picture> pictureList, String title, String imgsrc) {
         NewsPhotoDetail.Picture picture = new NewsPhotoDetail.Picture();
         if (title != null) {
@@ -130,12 +156,12 @@ public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentB
     private void setImageView(ViewHolderHelper holder, NewsContentBean newsSummary) {
         int PhotoThreeHeight = (int) DisplayUtil.dip2px(90);
         int PhotoTwoHeight = (int) DisplayUtil.dip2px(120);
-        int PhotoOneHeight = (int)DisplayUtil.dip2px(150);
+        int PhotoOneHeight = (int) DisplayUtil.dip2px(150);
 
         String imgSrcLeft = null;
         String imgSrcMiddle = null;
         String imgSrcRight = null;
-        LinearLayout news_summary_photo_iv_group=holder.getView(R.id.news_summary_photo_iv_group);
+        LinearLayout news_summary_photo_iv_group = holder.getView(R.id.news_summary_photo_iv_group);
         ViewGroup.LayoutParams layoutParams = news_summary_photo_iv_group.getLayoutParams();
 
         if (newsSummary.getAds() != null) {
@@ -188,22 +214,22 @@ public class HomeNewListAdapter extends MultiItemRecycleViewAdapter<NewsContentB
 
     private void setPhotoImageView(ViewHolderHelper holder, String imgSrcLeft, String imgSrcMiddle, String imgSrcRight) {
         if (imgSrcLeft != null) {
-            holder.setVisible(R.id.news_summary_photo_iv_left,true);
-            holder.setImageUrl(R.id.news_summary_photo_iv_left,imgSrcLeft);
+            holder.setVisible(R.id.news_summary_photo_iv_left, true);
+            holder.setImageUrl(R.id.news_summary_photo_iv_left, imgSrcLeft);
         } else {
-            holder.setVisible(R.id.news_summary_photo_iv_left,false);
+            holder.setVisible(R.id.news_summary_photo_iv_left, false);
         }
         if (imgSrcMiddle != null) {
-            holder.setVisible(R.id.news_summary_photo_iv_middle,true);
-            holder.setImageUrl(R.id.news_summary_photo_iv_middle,imgSrcMiddle);
+            holder.setVisible(R.id.news_summary_photo_iv_middle, true);
+            holder.setImageUrl(R.id.news_summary_photo_iv_middle, imgSrcMiddle);
         } else {
-            holder.setVisible(R.id.news_summary_photo_iv_middle,false);
+            holder.setVisible(R.id.news_summary_photo_iv_middle, false);
         }
         if (imgSrcRight != null) {
-            holder.setVisible(R.id.news_summary_photo_iv_right,true);
-            holder.setImageUrl(R.id.news_summary_photo_iv_right,imgSrcRight);
+            holder.setVisible(R.id.news_summary_photo_iv_right, true);
+            holder.setImageUrl(R.id.news_summary_photo_iv_right, imgSrcRight);
         } else {
-            holder.setVisible(R.id.news_summary_photo_iv_right,false);
+            holder.setVisible(R.id.news_summary_photo_iv_right, false);
         }
     }
 }

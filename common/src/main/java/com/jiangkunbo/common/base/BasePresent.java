@@ -3,7 +3,7 @@ package com.jiangkunbo.common.base;
 import android.content.Context;
 
 import com.jiangkunbo.common.base.imp.IContract;
-import com.jiangkunbo.common.rxbase.RxManager;
+//import com.jiangkunbo.common.rxbase.RxManager;
 
 
 /**
@@ -14,7 +14,7 @@ public abstract class BasePresent<V extends IContract.IView, M extends IContract
     private V views;
     private M models;
     private Context context;
-    public RxManager mRxManage = new RxManager();
+//    public RxManager mRxManage = new RxManager();
 
     @Override
     public void attachView(V views, Context context) {
@@ -27,7 +27,7 @@ public abstract class BasePresent<V extends IContract.IView, M extends IContract
     public void detchView() {
         views = null;
         models = null;
-        mRxManage.clear();
+//        mRxManage.clear();
     }
 
     public V getViews() {
