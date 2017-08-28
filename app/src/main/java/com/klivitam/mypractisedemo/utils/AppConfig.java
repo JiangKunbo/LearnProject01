@@ -14,4 +14,5 @@ public class AppConfig {
     public static final String NEWS_POST_ID= "NEWS_POST_ID";
     public static final String NEWS_IMG_RES= "NEWS_IMG_RES";
     public static final String TRANSITION_ANIMATION_NEWS_PHOTOS= "TRANSITION_ANIMATION_NEWS_PHOTOS";
+    public static final String VIDEO_TYPE= "VIDEO_TYPE";
 }

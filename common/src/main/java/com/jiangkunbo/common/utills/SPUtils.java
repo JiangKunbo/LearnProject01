@@ -8,8 +8,8 @@ import com.jiangkunbo.common.base.BaseApplication;
 
 
 /**
+ *  Created by jkb on 15-8-10.
  * 对SharedPreference文件中的各种类型的数据进行存取操作
- *
  */
 public class SPUtils {
 

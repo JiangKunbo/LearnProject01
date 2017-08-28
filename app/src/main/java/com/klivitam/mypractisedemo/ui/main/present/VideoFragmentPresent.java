@@ -15,11 +15,12 @@ public class VideoFragmentPresent extends BasePresent<IVideoContract.View,IVideo
 
     @Override
     public void start() {
+        getViews().initViews(getModels().loadVideosChannelsMine());
 
     }
 
     @Override
     protected IVideoContract.Model loadModels(BasePresent<IVideoContract.View, IVideoContract.Model> viewModelBasePresent, Context context) {
-        return new VideoFragmentModel(this,getContext());
+        return new VideoFragmentModel();
     }
 }
